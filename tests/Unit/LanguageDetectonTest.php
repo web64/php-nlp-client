@@ -25,7 +25,7 @@ class LanguageDetectionTest extends TestCase
     /** @test */
     public function detect_languages()
     {
-        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config );
+        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $tests = [
             'en'    => "The quick brown fox jumps over the lazy dog",
@@ -40,7 +40,6 @@ class LanguageDetectionTest extends TestCase
         foreach( $tests as $lang => $text )
         {
             $detected_lang = $nlp->language( $text );
-
             $this->assertEquals($lang, $detected_lang);
         }
     }
@@ -50,7 +49,7 @@ class LanguageDetectionTest extends TestCase
     {
         $this->nlpserver_config['hosts'] = 'http://localhost:6400/'; 
 
-        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config );
+        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $detected_lang = $nlp->language( "The quick brown fox jumps over the lazy dog" );
 
@@ -61,19 +60,19 @@ class LanguageDetectionTest extends TestCase
     /** @test */
     public function not_enough_text()
     {
-        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config );
+        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $detected_lang = $nlp->language( "?" );
-        echo "Detected: lang:". $detected_lang . PHP_EOL;
+        $this->msg( "Detected: lang:". $detected_lang );
         $this->assertEquals('en', $detected_lang);;
     }
 
     /** @test */
     public function fail_first_then_retry()
     {
-        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config );
+        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
         $nlp->api_url = 'http://localhost:6666/'; // <-- wrong port
-        print_r( $nlp );
+        //print_r( $nlp );
 
         $detected_lang = $nlp->language( "The quick brown fox jumps over the lazy dog" );
 

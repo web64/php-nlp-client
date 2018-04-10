@@ -10,7 +10,7 @@ $nlpserver_config = [
     'debug'     => true,
 ];
 
-$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config );
+$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config['hosts'], $nlpserver_config['debug'] );
 
 $newspaper = $nlp->newspaperUrl('http://www.bbc.com/news/science-environment-43710766');
 

@@ -10,7 +10,7 @@ $nlpserver_config = [
     'debug'     => false,
 ];
 
-$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config );
+$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config['hosts'], $nlpserver_config['debug'] );
 
 $texts = [
     'en'    => "The quick brown fox jumps over the lazy dog",

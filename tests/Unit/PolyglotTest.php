@@ -10,7 +10,7 @@ class PolyglotTest extends TestCase
     /** @test */
     public function entity_extraction()
     {
-        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config );
+        $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $text = "Big Ben is the largest of five bells and weighs 13.7 tonnes. It was the largest bell in the United Kingdom for 23 years. 
         The origin of the bell's nickname is open to question; it may be named after Sir Benjamin Hall, who oversaw its installation, or heavyweight boxing champion Benjamin Caunt. 

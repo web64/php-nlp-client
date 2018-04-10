@@ -10,7 +10,7 @@ $nlpserver_config = [
     'debug'     => true,
 ];
 
-$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config );
+$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config['hosts'], $nlpserver_config['debug'] );
 
 $neighbours = $nlp->embeddings('obama', 'no');
 

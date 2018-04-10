@@ -9,7 +9,7 @@ $nlpserver_config = [
     'debug'     => false,
 ];
 
-$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config );
+$nlp = new \Web64\Nlp\NlpClient( $nlpserver_config['hosts'], $nlpserver_config['debug'] );
 
 
 $text = "Den har en tykk, sukkulent stamme som blir 1,5–8 m høy. Stammen er bare forgrenet i toppen på eldre planter. Stammen og eventuelle greiner er dekket av lange torner, som er omdannede akselblad. I toppen av planten sitter en rosett med avlange blad. Bladene er olivengrønne på oversiden og lyse under. Etterhvert som planten vokser, faller bladene av nedover stammen, men tornene står parvis igjen i de gamle bladfestene. Blomstene er femtallige og hvite. Arten vokser i torneskogene på sørlige og sørvestlige Madagaskar opptil 750 moh.

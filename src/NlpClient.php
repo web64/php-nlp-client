@@ -14,18 +14,18 @@ class NlpClient{
     public $debug = false;
     private $max_retry_count = 3;
 	
-	function __construct( $config )
+	function __construct( $hosts, $debug = false )
 	{
-        if ( is_array($config['hosts']) )
+		$this->debug = (bool)$debug;
+
+        if ( is_array($hosts) )
         {
-			foreach( $config['hosts'] as $host )
+			foreach( $hosts as $host )
 				$this->addHost( $host );
 		}
         else
-            $this->addHost( $config['hosts'] );
+            $this->addHost( $hosts );
 		
-        if ( isset($config['debug']) && $config['debug'] )
-			$this->debug = true;
 
 		// pick random host as default
 		$this->api_url = $this->api_hosts[
