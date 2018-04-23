@@ -5,13 +5,13 @@ namespace Web64\Nlp;
 /**
  * Microsoft Concept Graph For Short Text Understanding
  *   - Documentation: https://concept.research.microsoft.com/
- *   - Example: https://concept.research.microsoft.com/api/Concept/ScoreByProb?instance=catalonia&topK=10&smooth=1
+ *   - Example: https://concept.research.microsoft.com/api/Concept/ScoreByProb?instance=laravel&topK=10&smooth=1
  */
-class MsConcept
+class MsConceptGraph
 {
     private $api_url = "https://concept.research.microsoft.com/api/Concept/";
     private $limit = 10;
-    private $smooth = 0.0004;
+    private $smooth = 0.0001;
     private $score_by = 'ScoreByProb';
     public $debug = false;
 
@@ -34,12 +34,16 @@ class MsConcept
         return $this;
     }
 
-    // , $num_results = 10, $score_method = 'ScoreByProb', $smooth = 0.0001
     public function get( $word )
     {
         $url = $this->api_url . $this->score_by . "?instance=" . urlencode($word) . "&topK=". $this->limit . "&smooth=". $this->smooth;
 
         return $this->call( $url );
+    }
+
+    public function getNpmi( $word )
+    {
+        return $this->scoreBy('ScoreByNPMI')->get( $url );
     }
 
     public function call( $url )

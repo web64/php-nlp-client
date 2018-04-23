@@ -2,7 +2,7 @@
 
 require "vendor/autoload.php";
 
-$concept = new \Web64\Nlp\MsConcept;
+$concept = new \Web64\Nlp\MsConceptGraph;
 $concept->debug = true;
 
 $res = $concept->get('php');

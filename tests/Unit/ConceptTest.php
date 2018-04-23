@@ -9,7 +9,7 @@ class ConceptTest extends TestCase
     /** @test */
     public function get_concepts_for_words()
     {
-        $concept = new \Web64\Nlp\MsConcept;
+        $concept = new \Web64\Nlp\MsConceptGraph;
         $res = $concept->get('php');
 
         $this->assertNotEmpty( $res );
@@ -21,7 +21,7 @@ class ConceptTest extends TestCase
     /** @test */
     public function score_by_npmi()
     {
-        $concept = new \Web64\Nlp\MsConcept;
+        $concept = new \Web64\Nlp\MsConceptGraph;
         $res = $concept->limit(3)->scoreBy('ScoreByNPMI')->smooth(0.0001)->get('php');
 
         $this->assertNotEmpty( $res );
