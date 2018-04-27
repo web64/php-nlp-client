@@ -51,10 +51,14 @@ class MsConceptGraph
         if ( $this->debug ) echo "URL: $url \n";
 
         $context_params = array(
-                'http' => array(
+            'http' => array(
                     'method' => 'GET',
                     'header' => "Content-Type: application/json\r\n",
-            )
+                ),
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
         );
         
         $context = stream_context_create( $context_params );

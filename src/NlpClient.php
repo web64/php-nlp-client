@@ -3,7 +3,7 @@
 namespace Web64\Nlp;
 
 /**
- * 		Simple interface to the Web64 NLP-Server for Natural Language Processing tasks
+ * 		Simple interface to the Web64 NLP-Server (https://github.com/web64/nlpserver) for Natural Language Processing tasks
  */
 
 class NlpClient{
@@ -26,73 +26,43 @@ class NlpClient{
         else
             $this->addHost( $hosts );
 		
-
 		// pick random host as default
-		$this->api_url = $this->api_hosts[
-			array_rand( $this->api_hosts )
-		]; 
+		$this->api_url = $this->api_hosts[ array_rand( $this->api_hosts ) ]; 
     }
-
-    public function addHost( $host )
-    {
-		$host = rtrim( $host , '/');
-
-        if (  array_search($host, $this->api_hosts) === false)
-            $this->api_hosts[] = $host;
-    }
-    
-    // debug message
-    private function msg( $value )
-    {
-        if ( $this->debug )
-        {
-            if ( is_array($value) )
-            {
-                print_r( $value );
-                echo PHP_EOL;
-            }
-            else
-                echo $value . PHP_EOL;
-        }
-    }
-
-	// find working host
-	private function chooseHost()
-	{
-		$random_a = $this->api_hosts;
-		shuffle($random_a); // pick random host
-		
-		foreach( $random_a as $api_url )
-		{
-            $this->msg( "chooseHost() - Testing: $api_url ");
-            
-			$content = @file_get_contents( $api_url );
-			if ( empty( $content ) )
-			{
-
-                $this->msg( $content );
-				// Failed
-                $this->msg( "- Ignoring failed API URL: $api_url " );
-				//print_r( $http_response_header );
-			}else{
-				$this->api_url = $api_url;
-				$this->msg( "- Working API URL: $api_url" );
-				return true;
-				 
-			}
-            $this->msg( $content );
-		}
-		
-		return false;
-	}
 	
+	/**
+	 * 	Spacy.io Entity Extraction
+	 */
+	public function spacy_entities( $text, $lang = 'en' )
+	{
+		$data =  $this->post_call('/spacy/entities', ['text' => $text, 'lang' => $lang ] );
+		
+		return ( !empty($data['entities']) ) ? $data['entities'] : null;
+	}
+
+	/**
+	 * 	Summarize long text
+	 */
+	public function summarize( $text, $word_count = null )
+	{
+		$data =  $this->post_call('/summarize', ['text' => $text, 'word_count' => $word_count ] );
+		
+		return ( !empty($data['summary']) ) ? $data['summary'] : null;
+	}
+
+	/**
+	 * 	Article Extraction from HTML
+	 */
 	public function newspaperHtml( $html )
 	{
-		$data =  $this->post_call('/newspaper', ['text' => $html ] );
+		$data =  $this->post_call('/newspaper', ['html' => $html ] );
 		
 		return ( !empty($data['newspaper']) ) ? $data['newspaper'] : null;
 	}
 
+	/**
+	 * 	Article Extraction from URL
+	 */
 	public function newspaperUrl( $url )
 	{
 		$data = $this->get_call('/newspaper', ['url' => $url ] );
@@ -101,6 +71,9 @@ class NlpClient{
 	}
 
 
+	/**
+	 * 		Get neighbouring words
+	 */
 	public function embeddings( $word, $lang = 'en')
 	{
 		$data = $this->get_call('/embeddings', ['word' => $word, 'lang' => $lang ] );
@@ -109,7 +82,7 @@ class NlpClient{
 	}
 
 	/**
-	 * 		Get entities and sentiment analysis of text
+	 * 	Get entities and sentiment analysis of text
 	 */
 	public function polyglot( $text, $language = null )
 	{
@@ -196,4 +169,62 @@ class NlpClient{
 		return  json_decode($result, 1);
 
 	}
+
+	/**
+	 * 	Internals
+	 */
+
+    public function addHost( $host )
+    {
+		$host = rtrim( $host , '/');
+
+        if (  array_search($host, $this->api_hosts) === false)
+            $this->api_hosts[] = $host;
+    }
+    
+    // debug message
+    private function msg( $value )
+    {
+        if ( $this->debug )
+        {
+            if ( is_array($value) )
+            {
+                print_r( $value );
+                echo PHP_EOL;
+            }
+            else
+                echo $value . PHP_EOL;
+        }
+    }
+
+	// find working host
+	private function chooseHost()
+	{
+		$random_a = $this->api_hosts;
+		shuffle($random_a); // pick random host
+		
+		foreach( $random_a as $api_url )
+		{
+            $this->msg( "chooseHost() - Testing: $api_url ");
+            
+			$content = @file_get_contents( $api_url );
+			if ( empty( $content ) )
+			{
+
+                $this->msg( $content );
+				// Failed
+                $this->msg( "- Ignoring failed API URL: $api_url " );
+				//print_r( $http_response_header );
+			}else{
+				$this->api_url = $api_url;
+				$this->msg( "- Working API URL: $api_url" );
+				return true;
+				 
+			}
+            $this->msg( $content );
+		}
+		
+		return false;
+	}
+
 }

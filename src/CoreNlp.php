@@ -7,6 +7,7 @@ namespace Web64\Nlp;
  *      unzip stanford-corenlp-full-2018-02-27.zip
  *      cd stanford-corenlp-full-2018-02-27
  *      java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
+ *          -> -serverProperties StanfordCoreNLP-chinese.properties
  */
 class CoreNlp
 {
@@ -81,12 +82,13 @@ class CoreNlp
     
         $url = $this->api_url;
         $url .= "?properties=" . urlencode( json_encode( $this->properties ) );
-        echo "URL: {$url} \n\n";
+
+        //echo "URL: {$url} \n\n";
 
         $context  = stream_context_create($opts);
         $result = @file_get_contents($url, false, $context);
 
-        file_put_contents("corenlp.json", $result);
+        //file_put_contents("corenlp.json", $result);
         
         return json_decode($result, 1);
     }

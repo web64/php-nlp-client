@@ -13,7 +13,8 @@ class EmbeddingsTest extends TestCase
 
         $neighbours = $nlp->embeddings('obama', 'no');
 
-        $this->msg( $neighbours );
+        //$this->msg( $neighbours );
+
         $this->assertNotEmpty($neighbours);
     }
 }

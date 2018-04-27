@@ -24,11 +24,12 @@ class CoreNlpTest extends TestCase
     Demirci reportedly worked as a Germany correspondent for Etha and lived in the city of Cologn.
     News of Demirci's arrest was first reported by Mesale Tolu, a colleague of his at Etha. Tolu herself was one of several German nationals arrested in Turkey year last year for political reasons. Tolu tweeted on Friday morning that Demirci was detained with two colleagues, Pınar Gayip and Semiha Sahin, during a raid. Demirci, who reportedly holds both German and Turkish citizenship, was in Istanbul on holiday, Tolu said. Reports suggested he was scheduled to fly back to Germany on Saturday. 
     ";
-        echo $text . PHP_EOL. PHP_EOL;
+        //echo $text . PHP_EOL. PHP_EOL;
         $entities = $corenlp->entities( $text );
-        print_r( $entities );
+        //print_r( $entities );
 
 
         $this->assertNotEmpty( $entities['COUNTRY'] );
+        $this->assertNotEmpty( $entities['NATIONALITY'] );
     }
 }

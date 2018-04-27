@@ -63,7 +63,7 @@ class LanguageDetectionTest extends TestCase
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $detected_lang = $nlp->language( "?" );
-        $this->msg( "Detected: lang:". $detected_lang );
+        //$this->msg( "Detected: lang:". $detected_lang );
         $this->assertEquals('en', $detected_lang);;
     }
 
