@@ -70,6 +70,26 @@ class NlpClient{
 		return ( !empty($data['newspaper']) ) ? $data['newspaper'] : null;
 	}
 
+	
+	/**
+	 * 	Readability Article Extraction from URL
+	 */
+	public function readabilityUrl( $url )
+	{
+		$data = $this->get_call('/readability', ['url' => $url ] );
+
+		return ( !empty($data['data']) ) ? $data['data'] : null;
+	}
+
+	/**
+	 * 	Readability Article Extraction from HTML
+	 */
+	public function readabilityHTML( $html )
+	{
+		$data = $this->post_call('/readability', ['html' => $html ] );
+
+		return ( !empty($data['data']) ) ? $data['data'] : null;
+	}
 
 	/**
 	 * 		Get neighbouring words

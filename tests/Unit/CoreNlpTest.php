@@ -10,7 +10,7 @@ class CoreNlpTest extends TestCase
     public function test_core_nlp()
     {
         $corenlp = new \Web64\Nlp\CoreNlp();
-        echo PHP_EOL. PHP_EOL;
+        //echo PHP_EOL. PHP_EOL;
         $text = "Catalonia: Ex-police chief Trapero charged with sedition. The former chief of Catalonia's police force, Josep Lluis Trapero, has been charged over events linked with last year's independence referendum.";
 
         $text = "German Foreign Ministry investigating arrest of German reporter in Turkey.
