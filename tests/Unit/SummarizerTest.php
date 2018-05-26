@@ -33,7 +33,7 @@ class SummarizerTest extends TestCase
 
         $summary = $nlp->summarize( $text );
 
-        //$this->msg( $summary );
+        $this->msg( $summary );
 
         $this->assertNotEmpty( $summary );
     }

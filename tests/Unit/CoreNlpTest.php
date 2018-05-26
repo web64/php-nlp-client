@@ -3,13 +3,17 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-
+/**
+ *      java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
+ *      nohup java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000 &
+ */
 class CoreNlpTest extends TestCase 
 {
     /** @test */
     public function test_core_nlp()
     {
-        $corenlp = new \Web64\Nlp\CoreNlp();
+        $corenlp = new \Web64\Nlp\CoreNlp('http://localhost:9000/');
+
         //echo PHP_EOL. PHP_EOL;
         $text = "Catalonia: Ex-police chief Trapero charged with sedition. The former chief of Catalonia's police force, Josep Lluis Trapero, has been charged over events linked with last year's independence referendum.";
 
@@ -26,7 +30,7 @@ class CoreNlpTest extends TestCase
     ";
         //echo $text . PHP_EOL. PHP_EOL;
         $entities = $corenlp->entities( $text );
-        //print_r( $entities );
+        print_r( $entities );
 
 
         $this->assertNotEmpty( $entities['COUNTRY'] );

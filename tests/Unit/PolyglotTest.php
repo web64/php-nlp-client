@@ -19,6 +19,7 @@ class PolyglotTest extends TestCase
         $polyglot = $nlp->polyglot( $text, 'en' );
 
         $this->msg( $polyglot );
+        $this->msg(  $polyglot->getEntities() );
 
         $this->assertNotEmpty( $polyglot->data );
         $this->assertArrayHasKey('sentiment', $polyglot->data, "Missing sentiment");
@@ -26,7 +27,12 @@ class PolyglotTest extends TestCase
 
         $this->assertNotEmpty( 
             $polyglot->getEntities()
+        );
+
+        $this->assertNotEmpty( 
+            $polyglot->getPersons()
          );
+         
 
         $this->assertTrue(
             is_numeric($polyglot->getSentiment())

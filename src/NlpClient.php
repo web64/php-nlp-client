@@ -11,7 +11,7 @@ class NlpClient{
 	public $api_url;
     public $api_hosts = [];
     public $fail_count = 0;
-    public $debug = false;
+    public $debug = true;
     private $max_retry_count = 3;
 	
 	function __construct( $hosts, $debug = false )
@@ -47,7 +47,7 @@ class NlpClient{
 	{
 		$data =  $this->post_call('/summarize', ['text' => $text, 'word_count' => $word_count ] );
 		
-		return ( !empty($data['summary']) ) ? $data['summary'] : null;
+		return ( !empty($data['summarize']) ) ? $data['summarize'] : null;
 	}
 
 	/**
@@ -78,7 +78,7 @@ class NlpClient{
 	{
 		$data = $this->get_call('/readability', ['url' => $url ] );
 
-		return ( !empty($data['data']) ) ? $data['data'] : null;
+		return ( !empty($data['readability']) ) ? $data['readability'] : null;
 	}
 
 	/**
@@ -88,15 +88,15 @@ class NlpClient{
 	{
 		$data = $this->post_call('/readability', ['html' => $html ] );
 
-		return ( !empty($data['data']) ) ? $data['data'] : null;
+		return ( !empty($data['readability']) ) ? $data['readability'] : null;
 	}
 
 	/**
 	 * 		Get neighbouring words
 	 */
-	public function embeddings( $word, $lang = 'en')
+	public function neighbours( $word, $lang = 'en')
 	{
-		$data = $this->get_call('/embeddings', ['word' => $word, 'lang' => $lang ] );
+		$data = $this->get_call('/neighbours', ['word' => $word, 'lang' => $lang ] );
 
 		return ( !empty($data['neighbours']) ) ? $data['neighbours'] : null;
 	}
@@ -107,7 +107,7 @@ class NlpClient{
 	public function polyglot( $text, $language = null )
 	{
 		$data = $this->post_call('/polyglot', ['text' => $text, 'lang' => $language] );
-		
+		$this->msg( $data );
 		return new \Web64\Nlp\Classes\PolyglotResponse( $data['polyglot'] );
 	}
 
@@ -116,7 +116,7 @@ class NlpClient{
 	 */
 	public function language( $text )
 	{
-		$data = $this->post_call('/language', ['text' => $text] );
+		$data = $this->post_call('/langid', ['text' => $text] );
 
 		if ( isset($data['langid']) && isset($data['langid']['language']))
 		{
@@ -156,6 +156,10 @@ class NlpClient{
 		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );
+
+			if ( $retry >= $this->max_retry_count )
+				return null;
+
 			$this->chooseHost();
 			return $this->post_call($path, $params, $retry );
 		}
@@ -170,16 +174,23 @@ class NlpClient{
 		$url = $this->api_url . $path;
 		
 		$retry++;
-
+		
 		if ( !empty($params) )
 			$url  .= '?' . http_build_query( $params );
 
 		$this->msg( "NLP API [GET] $path - $url ");
 		$result = @file_get_contents( $url, false );
 
+		if ( $http_response_header[0] == 'HTTP/1.0 404 NOT FOUND' )
+			return null;
+
 		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );
+
+			if ( $retry >= $this->max_retry_count )
+				return null;
+
 			$this->chooseHost();
 			return $this->get_call($path, $params, $retry );
 		}
@@ -209,11 +220,10 @@ class NlpClient{
         {
             if ( is_array($value) )
             {
-                print_r( $value );
-                echo PHP_EOL;
+				fwrite(STDOUT, print_r( $value, true ) . PHP_EOL );
             }
             else
-                echo $value . PHP_EOL;
+				fwrite(STDOUT, $value . PHP_EOL );
         }
     }
 

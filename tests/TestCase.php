@@ -15,7 +15,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 'http://localhost:6400/',
                 'http://localhost:6400/',
             ],
-            'debug'     => false,
+            'debug'     => true,
         ];
     }
 

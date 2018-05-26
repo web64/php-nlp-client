@@ -13,7 +13,6 @@ class ReadabilityTest extends TestCase
 
         $article = $nlp->readabilityUrl('https://github.com/web64/nlpserver');
 
-        
         //$this->msg( $article );
         $this->assertNotEmpty($article);
     }
@@ -26,12 +25,12 @@ class ReadabilityTest extends TestCase
         $html = file_get_contents( 'https://github.com/web64/nlpserver' );
         $article = $nlp->readabilityHtml( $html );
         
-        //$this->msg( $article );
+        $this->msg( $article );
 
         $this->assertNotEmpty($article);
         $this->assertNotEmpty($article['title']);
         $this->assertNotEmpty($article['short_title']);
-        $this->assertNotEmpty($article['content']);
-        $this->assertNotEmpty($article['summary']);
+        $this->assertNotEmpty($article['article_html']);
+        $this->assertNotEmpty($article['text']);
     }
 }

@@ -11,10 +11,27 @@ namespace Web64\Nlp;
  */
 class CoreNlp
 {
-    public $api_url = 'http://homestead:9000/';
+    public $api_url = 'http://localhost:9000/';
+    public $api_hosts = [];
 
     public $properties = [];
     public $data;
+
+	function __construct( $hosts, $debug = false )
+	{
+		$this->debug = (bool)$debug;
+
+        if ( is_array($hosts) )
+        {
+			foreach( $hosts as $host )
+				$this->addHost( $host );
+		}
+        else
+            $this->addHost( $hosts );
+		
+		// pick random host as default
+		$this->api_url = $this->api_hosts[ array_rand( $this->api_hosts ) ]; 
+    }
 
     public function entities( $text )
     {

@@ -89,7 +89,7 @@ class PolyglotResponse
     {
         return [
             'Locations'     => $this->getLocations(),
-            'Organizations' => $this->geOrganizations(),
+            'Organizations' => $this->getOrganizations(),
             'Persons'       => $this->getPersons(),
         ];
     }
@@ -100,7 +100,7 @@ class PolyglotResponse
             return array_keys( $this->data['type_entities']['I-LOC'] );
     }
 
-    public function geOrganizations()
+    public function getOrganizations()
     {
         if ( !empty($this->data['type_entities']['I-ORG']) )
             return array_keys( $this->data['type_entities']['I-ORG'] );
