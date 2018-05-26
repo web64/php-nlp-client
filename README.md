@@ -20,15 +20,7 @@ NLP Tasks Available through Microsoft Labs API:
 ```bash
 composer require web64/php-nlp-client
 ```
-### Core NLP (Java)
 
-Download CoreNLP server here: https://stanfordnlp.github.io/CoreNLP/index.html#download
-
-```bash
-# Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
-java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
-```
-More info about running the CoreNLP Server: https://stanfordnlp.github.io/CoreNLP/corenlp-server.html
 ## Usage
 
 ### Language detection:
@@ -213,4 +205,67 @@ Array
 */
 ```
 
+## CoreNLP - Entity Extraction (NER) 
+CoreNLP har much better quality for NER that Polyglot, but only supports a few languages including English, French, German and Spanish.
 
+Download CoreNLP server (Java) here: https://stanfordnlp.github.io/CoreNLP/index.html#download
+
+```bash
+# Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
+java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
+```
+More info about running the CoreNLP Server: https://stanfordnlp.github.io/CoreNLP/corenlp-server.html
+
+```php
+$corenlp = new \Web64\Nlp\CoreNlp('http://localhost:9000/');
+$entities = $corenlp->entities( $text );
+/*
+Array
+(
+    [NATIONALITY] => Array
+        (
+            [0] => German
+            [1] => Turkish
+        )
+    [ORGANIZATION] => Array
+        (
+            [0] => Foreign Ministry
+        )
+    [TITLE] => Array
+        (
+            [0] => reporter
+            [1] => journalist
+            [2] => correspondent
+        )
+    [COUNTRY] => Array
+        (
+            [0] => Turkey
+            [1] => Germany
+        )
+*/
+
+```
+
+## Concept Graph
+Microsoft Concept Graph For Short Text Understanding: https://concept.research.microsoft.com/
+
+Find related concepts to provided keyword
+```php
+$concept = new \Web64\Nlp\MsConceptGraph;
+$res = $concept->get('php');
+/*
+Array
+(
+    [language] => 0.40301612064483
+    [technology] => 0.19656786271451
+    [programming language] => 0.14456578263131
+    [open source technology] => 0.057202288091524
+    [scripting language] => 0.049921996879875
+    [server side language] => 0.044201768070723
+    [web technology] => 0.031201248049922
+    [server-side language] => 0.027561102444098
+    [server side scripting language] => 0.023920956838274
+    [feature] => 0.021840873634945
+)
+*/
+```

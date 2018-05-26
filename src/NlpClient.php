@@ -204,7 +204,6 @@ class NlpClient{
 	/**
 	 * 	Internals
 	 */
-
     public function addHost( $host )
     {
 		$host = rtrim( $host , '/');

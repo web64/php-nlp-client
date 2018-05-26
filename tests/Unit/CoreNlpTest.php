@@ -12,7 +12,7 @@ class CoreNlpTest extends TestCase
     /** @test */
     public function test_core_nlp()
     {
-        $corenlp = new \Web64\Nlp\CoreNlp('http://localhost:9000/');
+        $corenlp = new \Web64\Nlp\CoreNlp('http://homestead:9000/');
 
         //echo PHP_EOL. PHP_EOL;
         $text = "Catalonia: Ex-police chief Trapero charged with sedition. The former chief of Catalonia's police force, Josep Lluis Trapero, has been charged over events linked with last year's independence referendum.";
@@ -30,7 +30,7 @@ class CoreNlpTest extends TestCase
     ";
         //echo $text . PHP_EOL. PHP_EOL;
         $entities = $corenlp->entities( $text );
-        print_r( $entities );
+        $this->msg( $entities );
 
 
         $this->assertNotEmpty( $entities['COUNTRY'] );

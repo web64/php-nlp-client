@@ -16,6 +16,7 @@ class CoreNlp
 
     public $properties = [];
     public $data;
+    public $debug = false;
 
 	function __construct( $hosts, $debug = false )
 	{
@@ -31,6 +32,14 @@ class CoreNlp
 		
 		// pick random host as default
 		$this->api_url = $this->api_hosts[ array_rand( $this->api_hosts ) ]; 
+    }
+
+    public function addHost( $host )
+    {
+		$host = rtrim( $host , '/');
+
+        if (  array_search($host, $this->api_hosts) === false)
+            $this->api_hosts[] = $host;
     }
 
     public function entities( $text )

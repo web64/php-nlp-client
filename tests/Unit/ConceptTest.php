@@ -11,7 +11,7 @@ class ConceptTest extends TestCase
     {
         $concept = new \Web64\Nlp\MsConceptGraph;
         $res = $concept->get('php');
-
+        $this->msg( $res );
         $this->assertNotEmpty( $res );
 
         $this->assertEquals( 'language', key($res) );
