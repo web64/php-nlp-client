@@ -16,7 +16,7 @@ class PolyglotTest extends TestCase
         The origin of the bell's nickname is open to question; it may be named after Sir Benjamin Hall, who oversaw its installation, or heavyweight boxing champion Benjamin Caunt. 
         Four quarter bells chime at 15, 30 and 45 minutes past the hour and just before Big Ben tolls on the hour. The clock uses its original Victorian mechanism, but an electric motor can be used as a backup.";
         
-        $polyglot = $nlp->polyglot( $text, 'en' );
+        $polyglot = $nlp->polyglot_entities( $text, 'en' );
 
         $this->msg( $polyglot );
         $this->msg(  $polyglot->getEntities() );

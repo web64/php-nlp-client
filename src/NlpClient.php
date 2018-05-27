@@ -45,7 +45,7 @@ class NlpClient{
 	 */
 	public function summarize( $text, $word_count = null )
 	{
-		$data =  $this->post_call('/summarize', ['text' => $text, 'word_count' => $word_count ] );
+		$data =  $this->post_call('/gensim/summarize', ['text' => $text, 'word_count' => $word_count ] );
 		
 		return ( !empty($data['summarize']) ) ? $data['summarize'] : null;
 	}
@@ -53,7 +53,7 @@ class NlpClient{
 	/**
 	 * 	Article Extraction from HTML
 	 */
-	public function newspaperHtml( $html )
+	public function newspaper_html( $html )
 	{
 		$data =  $this->post_call('/newspaper', ['html' => $html ] );
 		
@@ -63,7 +63,7 @@ class NlpClient{
 	/**
 	 * 	Article Extraction from URL
 	 */
-	public function newspaperUrl( $url )
+	public function newspaper( $url )
 	{
 		$data = $this->get_call('/newspaper', ['url' => $url ] );
 
@@ -74,7 +74,7 @@ class NlpClient{
 	/**
 	 * 	Readability Article Extraction from URL
 	 */
-	public function readabilityUrl( $url )
+	public function readability( $url )
 	{
 		$data = $this->get_call('/readability', ['url' => $url ] );
 
@@ -84,7 +84,7 @@ class NlpClient{
 	/**
 	 * 	Readability Article Extraction from HTML
 	 */
-	public function readabilityHTML( $html )
+	public function readability_html( $html )
 	{
 		$data = $this->post_call('/readability', ['html' => $html ] );
 
@@ -92,11 +92,21 @@ class NlpClient{
 	}
 
 	/**
+	 * 	Sentiment Analysis by Polyglot
+	 */
+	public function sentiment( $text )
+	{
+		$data = $this->post_call('/polyglot/sentiment', ['text' => $text ] );
+
+		return ( isset($data['sentiment']) ) ? $data['sentiment'] : null;
+	}
+
+	/**
 	 * 		Get neighbouring words
 	 */
 	public function neighbours( $word, $lang = 'en')
 	{
-		$data = $this->get_call('/neighbours', ['word' => $word, 'lang' => $lang ] );
+		$data = $this->get_call('/polyglot/neighbours', ['word' => $word, 'lang' => $lang ] );
 
 		return ( !empty($data['neighbours']) ) ? $data['neighbours'] : null;
 	}
@@ -104,9 +114,9 @@ class NlpClient{
 	/**
 	 * 	Get entities and sentiment analysis of text
 	 */
-	public function polyglot( $text, $language = null )
+	public function polyglot_entities( $text, $language = null )
 	{
-		$data = $this->post_call('/polyglot', ['text' => $text, 'lang' => $language] );
+		$data = $this->post_call('/polyglot/entities', ['text' => $text, 'lang' => $language] );
 		$this->msg( $data );
 		return new \Web64\Nlp\Classes\PolyglotResponse( $data['polyglot'] );
 	}

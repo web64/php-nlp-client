@@ -21,6 +21,21 @@ NLP Tasks Available through Microsoft Labs API:
 composer require web64/php-nlp-client
 ```
 
+## Entity Extraction - Named Entity Recognition
+This package provies access to three different methods for entity extraction.
+
+| First Header  | Language Support | Programming Lang. | API Access |
+| ------------- | ------------- | ------------- | ------------- |
+| Polyglot  | 40 languages  | Python | NLP Server |
+| CoreNLP  | 6 languages  | Java | CoreNLP Standalone server |
+| Spacy.io  | 7 languages | Python | NLP Server |
+
+If you are dealing with text in English or one of the major European language you will get teh best results with CoreNLP or Spacy.io.
+
+The quality of extracted entities with Polyglot is not great, but for many languages it is the only available option at the moment.
+
+Polyglot and Spacy NER is accessible thorough the NLP Server, CoreNLP requires its own standalone java server.
+
 ## Usage
 
 ### Language detection:
@@ -35,11 +50,11 @@ $detected_lang = $nlp->language( "The quick brown fox jumps over the lazy dog" )
 ```php
 // From URL
 $nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
-$newspaper = $nlp->newspaperUrl('https://github.com/web64/nlpserver');
+$newspaper = $nlp->newspaper('https://github.com/web64/nlpserver');
 
 // or from HTML
 $html = file_get_contents( 'https://github.com/web64/nlpserver' );
-$newspaper = $nlp->newspaperHtml( $html );
+$newspaper = $nlp->newspaper_html( $html );
 
 Array
 (
@@ -56,10 +71,10 @@ Array
 )
 ```
 
-### Entity Extraction & Sentiment Analysis
+### Entity Extraction & Sentiment Analysis (Polyglot)
 ```php
 $nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
-$polyglot = $nlp->polyglot( $text, 'en' );
+$polyglot = $nlp->polyglot_entities( $text, 'en' );
 
 $entities = $polyglot->getEntities();
 $sentiment = $polyglot->getSentiment();
@@ -138,11 +153,11 @@ Article Extraction using python port of Readability.js
 $nlp = new \Web64\Nlp\NlpClient( 'http://localhost:6400/' );
 
 // From URL:
-$article = $nlp->readabilityUrl('https://github.com/web64/nlpserver');
+$article = $nlp->readability('https://github.com/web64/nlpserver');
 
 // From HTML:
 $html = file_get_contents( 'https://github.com/web64/nlpserver' );
-$article = $nlp->readabilityHtml( $html );
+$article = $nlp->readability_html( $html );
 
 /*
 Array
@@ -161,10 +176,10 @@ This uses the Polyglot multilingual NLP library to return entities and a sentime
 Ensure the models for the required languages are downloaded for Polyglot.
 
 ```php
-$polyglot = $nlp->polyglot( $text );
+$polyglot = $nlp->polyglot_entities( $text );
 
 // Specify language
-$polyglot = $nlp->polyglot( $text, 'no' );
+$polyglot = $nlp->polyglot_entities( $text, 'no' );
 
 $polyglot->getSentiment(); // -1
 
@@ -190,8 +205,6 @@ $polyglot->getLocations();  // Array of Locations
 $polyglot->getOrganizations(); // Array of organisations
 $polyglot->getPersons(); // Array of people
 
-
-
 $polyglot->getEntities();
 /*                                              
 Returns combined array of all entities
@@ -203,6 +216,18 @@ Array
     [3] => Benjamin Caunt                      
 )
 */
+```
+### Sentiment Analysis
+
+```php
+$sentiment = $nlp->sentiment( "This is the worst product ever" );
+// -1
+
+$sentiment = $nlp->sentiment( "This is great! " );
+// 1
+
+// specify language in second parameter for non-english
+$sentiment = $nlp->sentiment( $french_text, 'fr' );
 ```
 
 ## CoreNLP - Entity Extraction (NER) 

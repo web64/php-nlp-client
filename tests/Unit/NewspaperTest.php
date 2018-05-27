@@ -11,7 +11,7 @@ class NewspaperTest extends TestCase
     {
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
-        $newspaper = $nlp->newspaperUrl('https://github.com/web64/nlpserver');
+        $newspaper = $nlp->newspaper('https://github.com/web64/nlpserver');
 
         $this->msg( $newspaper );
         $this->assertNotEmpty($newspaper);
@@ -23,7 +23,7 @@ class NewspaperTest extends TestCase
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $html = file_get_contents( 'https://github.com/web64/nlpserver' );
-        $newspaper = $nlp->newspaperHtml( $html );
+        $newspaper = $nlp->newspaper_html( $html );
         
         $this->msg( $newspaper );
 

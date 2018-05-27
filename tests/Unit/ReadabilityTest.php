@@ -11,7 +11,7 @@ class ReadabilityTest extends TestCase
     {
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
-        $article = $nlp->readabilityUrl('https://github.com/web64/nlpserver');
+        $article = $nlp->readability('https://github.com/web64/nlpserver');
 
         //$this->msg( $article );
         $this->assertNotEmpty($article);
@@ -23,7 +23,7 @@ class ReadabilityTest extends TestCase
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 
         $html = file_get_contents( 'https://github.com/web64/nlpserver' );
-        $article = $nlp->readabilityHtml( $html );
+        $article = $nlp->readability_html( $html );
         
         $this->msg( $article );
 
