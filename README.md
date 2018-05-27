@@ -310,3 +310,14 @@ Array
 | Polyglot  | https://github.com/aboSamoor/polyglot | Multilingual NLPprocessing toolkit |
 | Gensim | https://radimrehurek.com/gensim/ | Summarization |
 | Readability | https://github.com/buriy/python-readability | Article extraction |
+
+
+## Other PHP NLP projects
+
+* https://github.com/patrickschur/language-detection
+* http://php-nlp-tools.com/
+
+
+## Contribute
+Get in touch if you have any feedback or ideas on how to improve this package or the documentation.
+
