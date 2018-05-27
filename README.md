@@ -1,6 +1,6 @@
 # PHP NLP-Client
 
-This is a simple PHP library for performing Natural Language tasks using the Web64 NLP-Server https://github.com/web64/nlpserver
+This is a simple PHP library for performing Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver .
 
 NLP Tasks Available through Web64's NLP Server:
 * Language detection
@@ -21,8 +21,12 @@ NLP Tasks Available through Microsoft Labs API:
 composer require web64/php-nlp-client
 ```
 
+## NLP-Server
+Most NLP features in this package requires a running instance of the NLP-Server, which is a simple python flask app providing web service api access to common python NLP libraries.
+Installation documentation: https://github.com/web64/nlpserver
+
 ## Entity Extraction - Named Entity Recognition
-This package provies access to three different methods for entity extraction.
+This package provides access to three different methods for entity extraction.
 
 | First Header  | Language Support | Programming Lang. | API Access |
 | ------------- | ------------- | ------------- | ------------- |
@@ -30,7 +34,7 @@ This package provies access to three different methods for entity extraction.
 | CoreNLP  | 6 languages  | Java | CoreNLP Standalone server |
 | Spacy.io  | 7 languages | Python | NLP Server |
 
-If you are dealing with text in English or one of the major European language you will get teh best results with CoreNLP or Spacy.io.
+If you are dealing with text in English or one of the major European language you will get the best results with CoreNLP or Spacy.io.
 
 The quality of extracted entities with Polyglot is not great, but for many languages it is the only available option at the moment.
 
@@ -39,13 +43,14 @@ Polyglot and Spacy NER is accessible thorough the NLP Server, CoreNLP requires i
 ## Usage
 
 ### Language detection:
+
 ```php
 $nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
 $detected_lang = $nlp->language( "The quick brown fox jumps over the lazy dog" );
 // 'en'
 ```
 
-### Article Extraction
+### Article & Metadata Extraction
 
 ```php
 // From URL
@@ -294,3 +299,14 @@ Array
 )
 */
 ```
+
+
+## Python libraries
+| Library | URL | NLP Task used |
+| ------------- | ------------- | ------------- | 
+| langid.py | https://github.com/saffsd/langid.py | Language detection |  
+| Newspaper | https://github.com/codelucas/newspaper | Article & metadata extraction |
+| Spacy | https://spacy.io/ | Entity extraction |
+| Polyglot  | https://github.com/aboSamoor/polyglot | Multilingual NLPprocessing toolkit |
+| Gensim | https://radimrehurek.com/gensim/ | Summarization |
+| Readability | https://github.com/buriy/python-readability | Article extraction |
