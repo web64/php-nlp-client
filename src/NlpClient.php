@@ -36,8 +36,18 @@ class NlpClient{
 	public function spacy_entities( $text, $lang = 'en' )
 	{
 		$data =  $this->post_call('/spacy/entities', ['text' => $text, 'lang' => $lang ] );
-		
+
 		return ( !empty($data['entities']) ) ? $data['entities'] : null;
+	}
+
+	/**
+	 * 	AFINN Sentiment Analysis
+	 */
+	public function afinn_sentiment( $text, $lang = 'en' )
+	{
+		$data =  $this->post_call('/afinn', ['text' => $text, 'lang' => $lang ] );
+
+		return ( isset($data['afinn']) ) ? $data['afinn'] : null;
 	}
 
 	/**

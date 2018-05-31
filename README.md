@@ -243,6 +243,9 @@ Download CoreNLP server (Java) here: https://stanfordnlp.github.io/CoreNLP/index
 ```bash
 # Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
+
+# To run server in as a background process
+nohup java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000 &
 ```
 More info about running the CoreNLP Server: https://stanfordnlp.github.io/CoreNLP/corenlp-server.html
 
@@ -277,6 +280,7 @@ Array
 ```
 
 ## Concept Graph
+WARNING: At the time of writing SSL certificate for concept.research.microsoft.com has expired and service might not work until they get that fixed.
 Microsoft Concept Graph For Short Text Understanding: https://concept.research.microsoft.com/
 
 Find related concepts to provided keyword
