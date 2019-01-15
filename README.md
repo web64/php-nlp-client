@@ -1,8 +1,8 @@
 # PHP NLP-Client
 
-This is a simple PHP library for performing multi-lingual Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver.
+This is a simple PHP library for performing multilingual Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver and other providers.
 
-NLP Tasks Available through Web64's NLP Server:
+NLP tasks available through Web64's NLP Server:
 * [Language detection](#language-detection)
 * [Article Extraction from HTML or URL](#article--metadata-extraction)
 * [Entity Extraction](#entitiy-extraction--sentiment-analysis-polyglot) (NER) - Multilingual
@@ -26,16 +26,17 @@ composer require web64/php-nlp-client
 
 ## NLP-Server
 Most NLP features in this package requires a running instance of the NLP-Server, which is a simple python flask app providing web service api access to common python NLP libraries.
-Installation documentation: https://github.com/web64/nlpserver
+
+Installation instrcuctions: https://github.com/web64/nlpserver
 
 ## Entity Extraction - Named Entity Recognition (NER)
-This package provides access to three different methods for entity extraction.
+This library provides access to three different methods for entity extraction.
 
-| First Header  | Language Support | Programming Lang. | API Access |
+| Provider  | Language Support | Programming Lang. | API Access |
 | ------------- | ------------- | ------------- | ------------- |
 | [Polyglot](https://polyglot.readthedocs.io/en/latest/)  | 40 languages  | Python | NLP Server |
-| [CoreNLP](https://stanfordnlp.github.io/CoreNLP/download.html)  | 6 languages  | Java | CoreNLP Standalone server |
 | [Spacy](https://spacy.io/)  | 7 languages | Python | NLP Server |
+| [CoreNLP](https://stanfordnlp.github.io/CoreNLP/download.html)  | 6 languages  | Java | CoreNLP Standalone server |
 
 If you are dealing with text in English or one of the major European language you will get the best results with CoreNLP or Spacy.
 
@@ -244,7 +245,7 @@ cd stanford-corenlp-full-2018-02-27
 wget http://nlp.stanford.edu/software/stanford-english-kbp-corenlp-2018-10-05-models.jar
 ```
 
-### Running CoreNLP server
+### Running the CoreNLP server
 ```bash
 # Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
