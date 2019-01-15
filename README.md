@@ -1,20 +1,20 @@
 # PHP NLP-Client
 
-This is a simple PHP library for performing Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver.
+This is a simple PHP library for performing multi-lingual Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver.
 
 NLP Tasks Available through Web64's NLP Server:
 * [Language detection](#language-detection)
 * [Article Extraction from HTML or URL](#article--metadata-extraction)
 * [Entity Extraction](#entitiy-extraction--sentiment-analysis-polyglot) (NER) - Multilingual
 * [Sentiment Analysis](#sentiment-analysis) - Multilingual
-* Embeddings / Neighbouring words  - Multilingual
-* Summarization
+* [Embeddings / Neighbouring words  - Multilingual](#neighbouring-words-embeddings)
+* [Summarization](#summarization)
 
 NLP Tasks Available through Stanford's CoreNLP Server:
-* Entity Extraction (NER)
+* [Entity Extraction (NER)](#corenlp---entity-extraction-ner)
 
 NLP Tasks Available through Microsoft Labs API:
-* Related concepts
+* [Concept Graph](#concept-graph)
 
 ### Laravel Package
 There is also a Laravel wrapper for this library available here: https://github.com/web64/laravel-nlp
@@ -196,7 +196,7 @@ Array
 */
 ```
 
-### Summarizer
+### Summarization
 Extract short summary from a long text
 ```php
 $summary = $nlp->summarize( $long_text );
