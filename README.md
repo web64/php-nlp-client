@@ -3,11 +3,11 @@
 This is a simple PHP library for performing Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver.
 
 NLP Tasks Available through Web64's NLP Server:
-* Language detection
+* [Language detection](#language-detection)
 * Entity Extraction (NER) - Multilingual
 * Sentiment Analysis - Multilingual
 * Embeddings / Neighbouring words  - Multilingual
-* Article Extraction from HTML or URL
+* [Article Extraction from HTML or URL](#article--metadata-extraction)
 * Summarization
 
 NLP Tasks Available through Stanford's CoreNLP Server:
@@ -80,7 +80,7 @@ Array
 ```
 
 
-### Polyglot Entities & Sentiment Analysis
+### Entitiy Extraction & Sentiment Analysis (Polyglot)
 This uses the Polyglot multilingual NLP library to return entities and a sentiment score for given text.Ensure the models for the required languages are downloaded for Polyglot.
 
 ```php
@@ -112,7 +112,7 @@ $polyglot->getPersons(); // Array of people
 
 $polyglot->getEntities();
 /*                                              
-Returns combined array of all entities
+Returns flat array of all entities
 Array                                          
 (                                              
     [0] => Ben                                 
@@ -157,7 +157,7 @@ Array
 */
 ```
 
-English is used by default. To use another language ensure Spacy language model is downloaded and add the language as the second parameter
+English is used by default. To use another language,  ensure the Spacy language model is downloaded and add the language as the second parameter
 ```php
 $entities = $nlp->spacy_entities( $spanish_text, 'es' );
 ```
