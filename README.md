@@ -4,10 +4,10 @@ This is a simple PHP library for performing Natural Language tasks using Web64's
 
 NLP Tasks Available through Web64's NLP Server:
 * [Language detection](#language-detection)
-* Entity Extraction (NER) - Multilingual
-* Sentiment Analysis - Multilingual
-* Embeddings / Neighbouring words  - Multilingual
 * [Article Extraction from HTML or URL](#article--metadata-extraction)
+* [Entity Extraction](#entitiy-extraction--sentiment-analysis-polyglot) (NER) - Multilingual
+* [Sentiment Analysis](#sentiment-analysis) - Multilingual
+* Embeddings / Neighbouring words  - Multilingual
 * Summarization
 
 NLP Tasks Available through Stanford's CoreNLP Server:
@@ -125,7 +125,7 @@ Array
 
 
 
-### Spacy Entities
+### Entity Extraction with Spacy
 ```php
 $text = "Harvesters is a 1905 oil painting on canvas by the Danish artist Anna Ancher, a member of the artists' community known as the Skagen Painters.";
 
@@ -160,6 +160,19 @@ Array
 English is used by default. To use another language,  ensure the Spacy language model is downloaded and add the language as the second parameter
 ```php
 $entities = $nlp->spacy_entities( $spanish_text, 'es' );
+```
+
+### Sentiment Analysis
+
+```php
+$sentiment = $nlp->sentiment( "This is the worst product ever" );
+// -1
+
+$sentiment = $nlp->sentiment( "This is great! " );
+// 1
+
+// specify language in second parameter for non-english
+$sentiment = $nlp->sentiment( $french_text, 'fr' );
 ```
 
 ### Neighbouring words (Embeddings)
@@ -212,20 +225,6 @@ Array
     [title] => GitHub - web64/nlpserver: NLP Web Service
 )
 */
-```
-
-
-### Sentiment Analysis
-
-```php
-$sentiment = $nlp->sentiment( "This is the worst product ever" );
-// -1
-
-$sentiment = $nlp->sentiment( "This is great! " );
-// 1
-
-// specify language in second parameter for non-english
-$sentiment = $nlp->sentiment( $french_text, 'fr' );
 ```
 
 ## CoreNLP - Entity Extraction (NER) 
@@ -313,6 +312,8 @@ Array
 
 
 ## Python libraries
+These are the python libraries used by the NLP Server for the NLP and data extraction tasks.
+
 | Library | URL | NLP Task used |
 | ------------- | ------------- | ------------- | 
 | langid.py | https://github.com/saffsd/langid.py | Language detection |  
