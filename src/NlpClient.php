@@ -11,7 +11,7 @@ class NlpClient{
 	public $api_url;
     public $api_hosts = [];
     public $fail_count = 0;
-    public $debug = true;
+    public $debug = false;
     private $max_retry_count = 3;
 	
 	function __construct( $hosts, $debug = false )
@@ -172,7 +172,6 @@ class NlpClient{
 		$context  = stream_context_create($opts);
 		$result = @file_get_contents($url, false, $context);
 
-		// print_r($http_response_header);
 		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );

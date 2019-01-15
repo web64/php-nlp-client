@@ -1,6 +1,6 @@
 # PHP NLP-Client
 
-This is a simple PHP library for performing Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver .
+This is a simple PHP library for performing Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver.
 
 NLP Tasks Available through Web64's NLP Server:
 * Language detection
@@ -16,6 +16,9 @@ NLP Tasks Available through Stanford's CoreNLP Server:
 NLP Tasks Available through Microsoft Labs API:
 * Related concepts
 
+### Laravel Package
+There is also a Laravel wrapper for this library available here: https://github.com/web64/laravel-nlp
+
 ## Installation
 ```bash
 composer require web64/php-nlp-client
@@ -25,16 +28,16 @@ composer require web64/php-nlp-client
 Most NLP features in this package requires a running instance of the NLP-Server, which is a simple python flask app providing web service api access to common python NLP libraries.
 Installation documentation: https://github.com/web64/nlpserver
 
-## Entity Extraction - Named Entity Recognition
+## Entity Extraction - Named Entity Recognition (NER)
 This package provides access to three different methods for entity extraction.
 
 | First Header  | Language Support | Programming Lang. | API Access |
 | ------------- | ------------- | ------------- | ------------- |
-| Polyglot  | 40 languages  | Python | NLP Server |
-| CoreNLP  | 6 languages  | Java | CoreNLP Standalone server |
-| Spacy.io  | 7 languages | Python | NLP Server |
+| [Polyglot](https://polyglot.readthedocs.io/en/latest/)  | 40 languages  | Python | NLP Server |
+| [CoreNLP](https://stanfordnlp.github.io/CoreNLP/download.html)  | 6 languages  | Java | CoreNLP Standalone server |
+| [Spacy](https://spacy.io/)  | 7 languages | Python | NLP Server |
 
-If you are dealing with text in English or one of the major European language you will get the best results with CoreNLP or Spacy.io.
+If you are dealing with text in English or one of the major European language you will get the best results with CoreNLP or Spacy.
 
 The quality of extracted entities with Polyglot is not great, but for many languages it is the only available option at the moment.
 
@@ -76,35 +79,51 @@ Array
 )
 ```
 
-### Entity Extraction & Sentiment Analysis (Polyglot)
+
+### Polyglot Entities & Sentiment Analysis
+This uses the Polyglot multilingual NLP library to return entities and a sentiment score for given text.Ensure the models for the required languages are downloaded for Polyglot.
+
 ```php
-$nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
 $polyglot = $nlp->polyglot_entities( $text, 'en' );
 
-$entities = $polyglot->getEntities();
-$sentiment = $polyglot->getSentiment();
-```
+$polyglot->getSentiment(); // -1
 
-### Neighbouring words (Embeddings)
-```php
-$nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
-$neighbours = $nlp->neighbours('obama', 'en');
+$polyglot->getEntityTypes(); 
 /*
 Array
 (
-    [0] => Bush
-    [1] => Reagan
-    [2] => Clinton
-    [3] => Ahmadinejad
-    [4] => Nixon
-    [5] => Karzai
-    [6] => McCain
-    [7] => Biden
-    [8] => Huckabee
-    [9] => Lula
+    [Locations] => Array
+    (
+        [0] => United Kingdom
+    )
+    [Organizations] =>
+    [Persons] => Array
+    (
+        [0] => Ben
+        [1] => Sir Benjamin Hall
+        [2] => Benjamin Caunt
+    )
+)
+*/
+
+$polyglot->getLocations();  // Array of Locations
+$polyglot->getOrganizations(); // Array of organisations
+$polyglot->getPersons(); // Array of people
+
+$polyglot->getEntities();
+/*                                              
+Returns combined array of all entities
+Array                                          
+(                                              
+    [0] => Ben                                 
+    [1] => United Kingdom                      
+    [2] => Sir Benjamin Hall                   
+    [3] => Benjamin Caunt                      
 )
 */
 ```
+
+
 
 ### Spacy Entities
 ```php
@@ -143,6 +162,26 @@ English is used by default. To use another language ensure Spacy language model 
 $entities = $nlp->spacy_entities( $spanish_text, 'es' );
 ```
 
+### Neighbouring words (Embeddings)
+```php
+$nlp = new \Web64\Nlp\NlpClient('http://localhost:6400/');
+$neighbours = $nlp->neighbours('obama', 'en');
+/*
+Array
+(
+    [0] => Bush
+    [1] => Reagan
+    [2] => Clinton
+    [3] => Ahmadinejad
+    [4] => Nixon
+    [5] => Karzai
+    [6] => McCain
+    [7] => Biden
+    [8] => Huckabee
+    [9] => Lula
+)
+*/
+```
 
 ### Summarizer
 Extract short summary from a long text
@@ -176,52 +215,6 @@ Array
 ```
 
 
-### Polyglot Entities & Sentiment Analysis
-This uses the Polyglot multilingual NLP library to return entities and a sentiment score for given text.
-Ensure the models for the required languages are downloaded for Polyglot.
-
-```php
-$polyglot = $nlp->polyglot_entities( $text );
-
-// Specify language
-$polyglot = $nlp->polyglot_entities( $text, 'no' );
-
-$polyglot->getSentiment(); // -1
-
-$polyglot->getEntityTypes(); 
-/*
-Array
-(
-    [Locations] => Array
-    (
-        [0] => United Kingdom
-    )
-    [Organizations] =>
-    [Persons] => Array
-    (
-        [0] => Ben
-        [1] => Sir Benjamin Hall
-        [2] => Benjamin Caunt
-    )
-)
-*/
-
-$polyglot->getLocations();  // Array of Locations
-$polyglot->getOrganizations(); // Array of organisations
-$polyglot->getPersons(); // Array of people
-
-$polyglot->getEntities();
-/*                                              
-Returns combined array of all entities
-Array                                          
-(                                              
-    [0] => Ben                                 
-    [1] => United Kingdom                      
-    [2] => Sir Benjamin Hall                   
-    [3] => Benjamin Caunt                      
-)
-*/
-```
 ### Sentiment Analysis
 
 ```php
@@ -240,6 +233,19 @@ CoreNLP har much better quality for NER that Polyglot, but only supports a few l
 
 Download CoreNLP server (Java) here: https://stanfordnlp.github.io/CoreNLP/index.html#download
 
+### Install CoreNLP
+```bash
+# Update download links with latest versions from the download page
+
+wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
+unzip stanford-corenlp-full-2018-10-05.zip
+cd stanford-corenlp-full-2018-02-27
+
+# Download English language model :
+wget http://nlp.stanford.edu/software/stanford-english-kbp-corenlp-2018-10-05-models.jar
+```
+
+### Running CoreNLP server
 ```bash
 # Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
@@ -247,6 +253,8 @@ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -t
 # To run server in as a background process
 nohup java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000 &
 ```
+When the CoreNLP server is running you can access it on port 9000: http://localhost:9000/
+
 More info about running the CoreNLP Server: https://stanfordnlp.github.io/CoreNLP/corenlp-server.html
 
 ```php
@@ -280,7 +288,6 @@ Array
 ```
 
 ## Concept Graph
-WARNING: At the time of writing SSL certificate for concept.research.microsoft.com has expired and service might not work until they get that fixed.
 Microsoft Concept Graph For Short Text Understanding: https://concept.research.microsoft.com/
 
 Find related concepts to provided keyword

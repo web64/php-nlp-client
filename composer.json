@@ -23,5 +23,8 @@
         },
         "files":["tests/utilities/functions.php"]
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "7"
+    }
 }

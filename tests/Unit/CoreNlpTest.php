@@ -31,7 +31,9 @@ class CoreNlpTest extends TestCase
         //echo $text . PHP_EOL. PHP_EOL;
         $entities = $corenlp->entities( $text );
         $this->msg( $entities );
-
+        
+        //var_dump($entities);
+        //exit;
 
         $this->assertNotEmpty( $entities['COUNTRY'] );
         $this->assertNotEmpty( $entities['NATIONALITY'] );

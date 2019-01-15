@@ -47,7 +47,7 @@ class LanguageDetectionTest extends TestCase
     /** @test */
     public function single_host()
     {
-        $this->nlpserver_config['hosts'] = 'http://localhost:6400/'; 
+        $this->nlpserver_config['hosts'] = 'http://homestead:6400/'; 
 
         $nlp = new \Web64\Nlp\NlpClient( $this->nlpserver_config['hosts'], $this->nlpserver_config['debug'] );
 

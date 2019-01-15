@@ -3,9 +3,13 @@
 namespace Web64\Nlp;
 
 /**
- *      wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
- *      unzip stanford-corenlp-full-2018-02-27.zip
+ *      Download from: https://stanfordnlp.github.io/CoreNLP/
+ *      wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
+ *      unzip stanford-corenlp-full-2018-10-05.zip
  *      cd stanford-corenlp-full-2018-02-27
+ * 
+ *      # Download language model:
+ *      wget http://nlp.stanford.edu/software/stanford-english-kbp-corenlp-2018-10-05-models.jar
  *      java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
  *          -> -serverProperties StanfordCoreNLP-chinese.properties
  */
@@ -109,12 +113,14 @@ class CoreNlp
         $url = $this->api_url;
         $url .= "?properties=" . urlencode( json_encode( $this->properties ) );
 
-        //echo "URL: {$url} \n\n";
+        if ( $this->debug )
+            echo "URL: {$url} \n\n";
 
         $context  = stream_context_create($opts);
         $result = @file_get_contents($url, false, $context);
 
-        //file_put_contents("corenlp.json", $result);
+        if ( $this->debug )
+            file_put_contents("corenlp.json", $result);
         
         return json_decode($result, 1);
     }

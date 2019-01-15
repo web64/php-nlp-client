@@ -12,8 +12,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $this->nlpserver_config = [
             'hosts'     => [
-                'http://localhost:6400/',
-                'http://localhost:6400/',
+                'http://homestead:6400/',
+                'http://homestead:6400/',
             ],
             'debug'     => false,
         ];
@@ -21,6 +21,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     public function msg( $msg )
     {
+        if ( !$this->nlpserver_config['debug'] )
+            return;
+
         if ( is_array($msg) ||  is_object($msg) )
             $msg = print_r($msg , true);
 
