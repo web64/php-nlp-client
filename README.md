@@ -228,7 +228,7 @@ Array
 ```
 
 ## CoreNLP - Entity Extraction (NER) 
-CoreNLP har much better quality for NER that Polyglot, but only supports a few languages including English, French, German and Spanish.
+CoreNLP has much better quality for NER that Polyglot, but only supports a few languages including English, French, German and Spanish.
 
 Download CoreNLP server (Java) here: https://stanfordnlp.github.io/CoreNLP/index.html#download
 
@@ -240,7 +240,7 @@ wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
 unzip stanford-corenlp-full-2018-10-05.zip
 cd stanford-corenlp-full-2018-02-27
 
-# Download English language model :
+# Download English language model:
 wget http://nlp.stanford.edu/software/stanford-english-kbp-corenlp-2018-10-05-models.jar
 ```
 
