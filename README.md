@@ -7,7 +7,7 @@ NLP tasks available through Web64's NLP Server:
 * [Article Extraction from HTML or URL](#article--metadata-extraction)
 * [Entity Extraction](#entitiy-extraction--sentiment-analysis-polyglot) (NER) - Multilingual
 * [Sentiment Analysis](#sentiment-analysis) - Multilingual
-* [Embeddings / Neighbouring words  - Multilingual](#neighbouring-words-embeddings)
+* [Embeddings / Neighbouring words](#neighbouring-words-embeddings) - Multilingual
 * [Summarization](#summarization)
 
 NLP Tasks Available through Stanford's CoreNLP Server:
@@ -24,8 +24,8 @@ There is also a Laravel wrapper for this library available here: https://github.
 composer require web64/php-nlp-client
 ```
 
-## NLP-Server
-Most NLP features in this package requires a running instance of the NLP-Server, which is a simple python flask app providing web service api access to common python NLP libraries.
+## NLP Server
+Most NLP features in this package requires a running instance of the NLP Server, which is a simple python flask app providing web service api access to common python NLP libraries.
 
 Installation instrcuctions: https://github.com/web64/nlpserver
 
