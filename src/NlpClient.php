@@ -104,9 +104,9 @@ class NlpClient{
 	/**
 	 * 	Sentiment Analysis by Polyglot
 	 */
-	public function sentiment( $text )
+	public function sentiment( $text, $language = null )
 	{
-		$data = $this->post_call('/polyglot/sentiment', ['text' => $text ] );
+		$data = $this->post_call('/polyglot/sentiment', ['text' => $text, 'lang' => $language ] );
 
 		return ( isset($data['sentiment']) ) ? $data['sentiment'] : null;
 	}
