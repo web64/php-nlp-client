@@ -1,5 +1,9 @@
 # PHP NLP-Client
 
+<p align="center">
+    <img src="http://cdn.web64.com/nlp-norway/php-nlp.png" width="400">
+</p>
+
 This is a simple PHP library for performing multilingual Natural Language tasks using Web64's NLP-Server https://github.com/web64/nlpserver and other providers.
 
 NLP tasks available through Web64's NLP Server:
