@@ -35,7 +35,7 @@ Slike innkjøpsbetingelser hindrer også nye aktører til å komme inn på marke
 Situasjonen blir heller ikke bedre av at Norgesgruppen også eier det største distribusjonsselskapet, Asko.";
 
 $detected_lang = $nlp->language( $text );
-$polyglot = $nlp->polyglot( $text, $detected_lang );
+$polyglot = $nlp->polyglot_entities( $text, $detected_lang );
 
 print_r($polyglot);
 
