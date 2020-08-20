@@ -200,7 +200,7 @@ class NlpClient{
 		$this->msg( "NLP API [GET] $path - $url ");
 		$result = @file_get_contents( $url, false );
 
-		if ( $http_response_header[0] == 'HTTP/1.0 404 NOT FOUND' )
+		if ( empty($http_response_header) || $http_response_header[0] == 'HTTP/1.0 404 NOT FOUND' )
 			return null;
 
 		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
@@ -238,10 +238,21 @@ class NlpClient{
         {
             if ( is_array($value) )
             {
-				fwrite(STDOUT, print_r( $value, true ) . PHP_EOL );
+				if(!defined('STDOUT'))
+				{
+					print_r( $value );
+				}else{
+					fwrite(STDOUT, print_r( $value, true ) . PHP_EOL );
+				}
             }
-            else
-				fwrite(STDOUT, $value . PHP_EOL );
+			else
+			{
+				if(!defined('STDOUT')){
+					echo $value . PHP_EOL;
+				}else{
+					fwrite(STDOUT, $value . PHP_EOL );
+				}
+			}
         }
     }
 
