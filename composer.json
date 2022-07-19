@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Aflorea4\\Nlp\\": "src/"
+            "Web64\\Nlp\\": "src/"
         }
     },
     "autoload-dev": {
