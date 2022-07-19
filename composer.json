@@ -1,20 +1,16 @@
 {
-    "name": "web64/php-nlp-client",
-    "description": "Library for accessing NLP apis",
+    "name": "aflorea4/php-nlp-client",
+    "description": "Library for accessing NLP apis (Fixed HTTP header interpretation)",
 	"keywords": ["nlp", "natural language", "entity extraction", "article extraction", "language detection"],
     "license": "MIT",
     "authors": [
-        {
-            "name": "Olav Hjertaker",
-            "email": "olav.hjertaker@gmail.com"
-        }
     ],
     "require": {
         "php": ">=5.6.0"
     },
     "autoload": {
         "psr-4": {
-            "Web64\\Nlp\\": "src/"
+            "Aflorea4\\Nlp\\": "src/"
         }
     },
     "autoload-dev": {
