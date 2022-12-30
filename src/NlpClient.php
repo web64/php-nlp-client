@@ -172,7 +172,7 @@ class NlpClient{
 		$context  = stream_context_create($opts);
 		$result = @file_get_contents($url, false, $context);
 
-		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
+		if (empty($result) || (isset($http_response_header) && !str_contains($http_response_header[0], '200 OK'))) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );
 
@@ -200,10 +200,10 @@ class NlpClient{
 		$this->msg( "NLP API [GET] $path - $url ");
 		$result = @file_get_contents( $url, false );
 
-		if ( empty($http_response_header) || $http_response_header[0] == 'HTTP/1.0 404 NOT FOUND' )
+		if (empty($http_response_header) || str_contains($http_response_header[0], '404 NOT FOUND'))
 			return null;
 
-		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
+		if (empty($result) || (isset($http_response_header) && !str_contains($http_response_header[0], '200 OK'))) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );
 
