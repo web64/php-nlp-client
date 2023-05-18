@@ -172,7 +172,7 @@ class NlpClient{
 		$context  = stream_context_create($opts);
 		$result = @file_get_contents($url, false, $context);
 
-		if ( empty($result) || ( isset($http_response_header) && $http_response_header[0] != 'HTTP/1.0 200 OK' ) ) // empty if server is down
+		if ( empty($result) || ( isset($http_response_header) && !stristr($http_response_header[0],  '200 OK' ))) // empty if server is down
 		{
 			$this->msg( "Host Failed: {$url}" );
 
